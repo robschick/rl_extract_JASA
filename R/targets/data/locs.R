@@ -120,21 +120,22 @@ register_target(
       anna_params <- c(1.06103672, -0.02690245)
       gonio_out <- gonio_out %>% 
         dplyr::mutate(distance = 10^(anna_params[1] + (anna_params[2] * strength_db))) %>%
-        dplyr::select(deployid, datetime, latitude, longitude, type, quality, platform, gonio_bearing_deg, distance) %>%
+        dplyr::select(deployid, datetime, latitude, longitude, type, quality, platform, 
+                      bearing = gonio_bearing_deg, distance) %>%
         dplyr::mutate(quality = rep("User", nrow(gonio_out)),
                source = rep("gonio", nrow(gonio_out))) 
       
-      # Old Gonio Look Up Table
-      # gonio_out <- gonio_out %>% 
-      #   mutate(distance = case_when(
-      #     strength_db > -50 ~ 100,
-      #     strength_db > -100 & strength_db <= -50 ~ 500, 
-      #     strength_db > -110 & strength_db <= -100 ~ 1000, 
-      #     strength_db > -120 & strength_db <= -110 ~ 2500, 
-      #     strength_db <= -120 ~ 3000)) %>%
-      #   select(deployid, datetime, latitude, longitude, type, quality, platform, distance) %>%
-      #   mutate(quality = rep("User", nrow(gonio_out)),
-      #          source = rep("gonio", nrow(gonio_out))) 
+      # 2024-10-09: Changing Code to Calculate Position of whale
+      # Along the bearing recorded from the goniometer
+      whales <- destPoint(p = cbind(gonio_out$longitude, gonio_out$latitude),
+                          b = gonio_out$bearing,
+                          d = gonio_out$distance)
+      
+      gonio_out <- gonio_out %>% 
+        dplyr::mutate(boat_lon = longitude,
+                      boat_lat = latitude,
+                      longitude = whales[, 1],
+                      latitude = whales[, 2])
       
       gonio_out <- gonio_out %>% 
         dplyr::mutate(error_semi_major_axis = distance,
