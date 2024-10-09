@@ -29,8 +29,7 @@ register_target(
       f = file.path(here::here('data/raw_data'))
       dir.create(path = f, showWarnings = FALSE, recursive = TRUE)
       
-      # here::here(../data/series_data)
-      tbl_locs <- list.files(file.path('~/Documents/_research/rrr/scaled_source_ms-dev/data/01_LOCATIONS_ALL/L1_kalman'),
+      tbl_locs <- list.files(file.path(locs_file_location),
                              recursive = TRUE, 
                              full.names = TRUE, 
                              pattern = "*-Locations.csv") %>% 

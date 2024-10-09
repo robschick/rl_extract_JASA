@@ -43,6 +43,7 @@ register_target(
       )
       
       locs <- locs_data %>% 
+        dplyr::filter(quality != 'Z') %>% 
         dplyr::mutate(ptt = forcats::as_factor(ptt),
                       year = lubridate::year(datetime),
                       month = lubridate::month(datetime),
@@ -87,8 +88,6 @@ register_target(
       
       
       # Goniometer Data
-      # Add a comment that gonio_data is a target
-      # is there a style guide for this
       gonio <- gonio_data %>%
         dplyr::mutate(quality = 'User',
                type = 'User') %>% 
@@ -121,7 +120,7 @@ register_target(
       anna_params <- c(1.06103672, -0.02690245)
       gonio_out <- gonio_out %>% 
         dplyr::mutate(distance = 10^(anna_params[1] + (anna_params[2] * strength_db))) %>%
-        dplyr::select(deployid, datetime, latitude, longitude, type, quality, platform, distance) %>%
+        dplyr::select(deployid, datetime, latitude, longitude, type, quality, platform, gonio_bearing_deg, distance) %>%
         dplyr::mutate(quality = rep("User", nrow(gonio_out)),
                source = rep("gonio", nrow(gonio_out))) 
       
