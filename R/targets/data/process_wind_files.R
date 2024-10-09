@@ -26,9 +26,7 @@ register_target(
                                      format = "%Y-%m-%d %H:%M:%S", tz = 'UTC'))
       
       # Container to hold the information about wind data for each cee
-      # Note that the last two in 2022 are controls - hence
-      # subtracting off 2
-      wind_list <- vector(mode = 'list', length = length(cee_times) - 2)
+      wind_list <- vector(mode = 'list', length = length(cee_times))
       
       for(i in 1:length(wind_list)){
         

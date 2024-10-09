@@ -23,6 +23,8 @@ register_target(
         if(my_cee_id %in% c("22_01", "22_02"))next()
         animal <- calc_rl[[i]][["pts_rl"]] %>% 
           sf::st_as_sf() 
+        
+        print(paste(unique(animal$deployid), my_cee_id, i, sep = ': '))
           
         wind_path <- which(my_cee_id == process_wind_files[, "cee_id"])
         wind_file <- raster::raster(process_wind_files$wrast_path[wind_path])

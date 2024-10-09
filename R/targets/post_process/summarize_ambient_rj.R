@@ -24,6 +24,7 @@ register_target(
         if(as.logical(my_cee_type == 'control')) next()
         animal <- sample_ambient_rj[[i]][["pts_tobl"]]
         
+        print(paste(my_deployid, my_cee_id, i, sep = ": "))
         # Do the Re-sampling on RL
         rl_boot_samples <- vector(mode = 'list', length = nrow(animal))
         rl_samples <- vector(mode = 'list', length = nrow(animal))
@@ -31,6 +32,7 @@ register_target(
           
           # Grab the vector of RLs through the H20 col at a given x,y,t
           rls <- unlist(animal$all_rl_vals[j])
+          if(all(is.na(rls))) next()
           
           # Subtract the 1/3 Octave band 
           # if negative, than source was not detectable (NA)
@@ -101,7 +103,7 @@ register_target(
                fill = 'SPL')+
         scale_fill_viridis_c()
         
-        f = file.path(here::here('results/plots/rl_summary'))
+        f = file.path(here::here('results/plots/rl_summary_rj'))
         dir.create(path = f, showWarnings = FALSE, recursive = TRUE)
         
         ggsave(p, 
