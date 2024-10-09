@@ -19,6 +19,7 @@ tar_option_set(
                "tidyr",
                "here",
                "sf",
+               "geosphere",
                "crsuggest",
                "trip",
                "crawl",
