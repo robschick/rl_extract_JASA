@@ -97,9 +97,11 @@ register_target(
         p <- ggplot2::ggplot(rl_df, aes(x = raw, y = factor(datetime), fill = after_stat(x)))+
           ggridges::geom_density_ridges_gradient(scale = 3, rel_min_height = 0.01)+
           theme_bw()+
-          labs(title = "Estimated RLs at 5' Intervals within the CEE",
-               subtitle = paste0(unique(animal$deployid), ", CEE ID: ", my_cee_id),
-               y = '', x = expression(paste("SPL (dB re:1 ", mu, "Pa)")),
+          # labs(title = "Estimated RLs at 5' Intervals within the CEE",
+          #      subtitle = paste0(unique(animal$deployid), ", CEE ID: ", my_cee_id),
+          #      y = '', x = expression(paste("SPL (dB re:1 ", mu, "Pa)")),
+          #      fill = 'SPL')+
+          labs(y = '', x = expression(paste("SPL (dB re:1 ", mu, "Pa)")),
                fill = 'SPL')+
         scale_fill_viridis_c()
         
