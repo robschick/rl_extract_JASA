@@ -19,8 +19,8 @@ data_dir_argos_gonio_rj <- "data/proc_data/rl_samples_rj"
 data_dir_argos_gonio <- "data/proc_data/rl_samples"
 
 # WithOUT Gonio Data
-data_dir_argosonly_rj <- "~/Documents/_research/rrr/ss_rl_compare_no-gonio/data/proc_data/rl_samples_rj"
-data_dir_argosonly <- "~/Documents/_research/rrr/ss_rl_compare_no-gonio/data/proc_data/rl_samples"
+data_dir_argosonly_rj <- "~/Documents/_research/rrr/rl_extract_JASA-nogonio/data/proc_data/rl_samples_rj"
+data_dir_argosonly <- "~/Documents/_research/rrr/rl_extract_JASA-nogonio/data/proc_data/rl_samples"
 
 
 #######################################################################
@@ -229,12 +229,12 @@ kl_df_long <- kl_df_long %>%
 ggplot(kl_df_long, aes(glabel, kl_div, fill = glabel)) +
   geom_rain(alpha = .5) +
   theme_classic() +
-  scale_fill_brewer(palette = 'Dark2') +
+  scale_fill_brewer(palette = 'Greys') +
   guides(fill = 'none', color = 'none') +
   coord_flip()+
   labs(y = 'Kullback-Leibler Divergence',
        x = '')
-ggsave(filename = here::here('results/plots/kl-dist.png'),
+ggsave(filename = here::here('results/plots/2024-10-18_kl-dist.png'),
        device = 'png',
        dpi = 'retina',
        width = 6.1, height = 6.1, units = 'in') 
